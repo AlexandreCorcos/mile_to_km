@@ -1,40 +1,45 @@
-from tkinter import *
+import tkinter as tk
 
 FONT = ("Arial", 20, "bold")
 
-window = Tk()
-window.title("Mile to Km Converter")
+window = tk.Tk()
+window.title("Miles to Kilometers Converter")
 window.minsize(width=300, height=300)
 window.config(pady=20, padx=20)
 
 
-def calculate():
-    miles = float(e_converter.get())
-    km = round(miles * 1.609)
-    l_result.config(text=f"{km}")
-    return km
+def miles_to_km():
+    miles = float(miles_entry.get())
+    kilometers = miles * 1.60934
+    result_label.config(text=f"{miles} miles = {kilometers:.2f} kilometers")
 
 
-# Labels
-l_miles = Label(text="Miles", font=FONT)
-l_miles.grid(column=2, row=0)
+def km_to_miles():
+    kilometers = float(km_entry.get())
+    miles = kilometers / 1.60934
+    result_label.config(text=f"{kilometers} kilometers = {miles:.2f} miles")
 
-l_isequalto = Label(text="is equal to", font=FONT)
-l_isequalto.grid(column=0, row=1)
 
-l_km = Label(text="Km", font=FONT)
-l_km.grid(column=2, row=1)
+# Create widgets
+miles_label = tk.Label(window, text="Miles:")
+miles_label.grid(row=0, column=0)
 
-l_result = Label(text="0", font=FONT)
-l_result.grid(column=1, row=1)
-l_result.config(padx=10, pady=10)
+miles_entry = tk.Entry(window)
+miles_entry.grid(row=0, column=1)
 
-# Button
-b_calculate = Button(text="Calculate", command=calculate, font=FONT)
-b_calculate.grid(column=1, row=2)
+km_label = tk.Label(window, text="Kilometers:")
+km_label.grid(row=1, column=0)
 
-# Entry
-e_converter = Entry(width=10, font=FONT)
-e_converter.grid(column=1, row=0)
+km_entry = tk.Entry(window)
+km_entry.grid(row=1, column=1)
+
+convert_button1 = tk.Button(window, text="Convert to Kilometers", command=miles_to_km)
+convert_button1.grid(row=2, column=0, columnspan=2)
+
+convert_button2 = tk.Button(window, text="Convert to Miles", command=km_to_miles)
+convert_button2.grid(row=3, column=0, columnspan=2)
+
+result_label = tk.Label(window, text="")
+result_label.grid(row=4, column=0, columnspan=2)
 
 window.mainloop()
